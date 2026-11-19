@@ -3,13 +3,19 @@
   "corpus": {
     "instances": 60,
     "boxes": 4555,
-    "utilizationPct": 84.05,
+    "placed": 4555,
+    "volume": 275385,
+    "capacity": 328680,
+    "aggregateUtilizationPct": 83.785,
+    "meanUtilizationPct": 84.049,
     "overlaps": 0,
     "unsupported": 0
   },
   "baseline": {
     "boxes": 4555,
-    "utilizationPct": 84.05,
+    "placed": 4555,
+    "volume": 275385,
+    "aggregateUtilizationPct": 83.785,
     "overlaps": 0,
     "unsupported": 1750,
     "unsupportedPct": 38.42
@@ -23,56 +29,56 @@
     }
   },
   "coldStartMs": {
-    "pack": 268.479,
-    "audit": 2.768
+    "pack": 242.621,
+    "audit": 2.775
   },
   "certifiedPack": {
     "samples": [
-      199.996,
-      200.547,
-      192.294,
-      195.64,
-      193.633,
-      195.298,
-      193.379
+      198.514,
+      200.45,
+      191.877,
+      192.895,
+      192.858,
+      192.87,
+      196.856
     ],
-    "min": 192.294,
-    "median": 195.298,
-    "p95": 200.547,
-    "stddev": 3.006,
-    "rsdPct": 1.54
+    "min": 191.877,
+    "median": 192.895,
+    "p95": 200.45,
+    "stddev": 3.129,
+    "rsdPct": 1.6
   },
   "certifiedAudit": {
     "samples": [
-      0.447,
-      0.287,
+      0.559,
+      0.362,
+      0.277,
+      0.289,
       0.274,
-      0.279,
-      0.278,
-      0.291,
-      0.277
+      0.259,
+      0.258
     ],
-    "min": 0.274,
-    "median": 0.279,
-    "p95": 0.447,
-    "stddev": 0.058,
-    "rsdPct": 19.18
+    "min": 0.258,
+    "median": 0.277,
+    "p95": 0.559,
+    "stddev": 0.101,
+    "rsdPct": 30.99
   },
   "noSupportPack": {
     "samples": [
-      168.043,
-      168.077,
-      168.069,
-      165.954,
-      177.982,
-      163.522,
-      162.406
+      164.211,
+      162.697,
+      163.573,
+      163.507,
+      173.861,
+      159.766,
+      161.173
     ],
-    "min": 162.406,
-    "median": 168.043,
-    "p95": 177.982,
-    "stddev": 4.7,
-    "rsdPct": 2.8
+    "min": 159.766,
+    "median": 163.507,
+    "p95": 173.861,
+    "stddev": 4.23,
+    "rsdPct": 2.58
   },
   "repeats": 7,
   "note": "cold start is the first call after module load; warmup run is discarded; no sample removed"

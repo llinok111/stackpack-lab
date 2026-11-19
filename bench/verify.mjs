@@ -56,7 +56,7 @@ if (oracleMismatch !== 0) fail(`support oracle mismatches ${oracleMismatch}/${or
 if (gridDouble !== 0) fail(`grid oracle double writes ${gridDouble}`);
 if (gridCells !== vol) fail(`grid cells ${gridCells} != placed volume ${vol}`);
 
-console.log(`ok   stackpack: ${placed}/${boxes} boxes, overlaps ${overlaps}, outside ${outside}, unsupported ${unsupported}, volume ${vol}/${cap} = ${(util / 60 * 100).toFixed(2)}%`);
+console.log(`ok   stackpack: ${placed}/${boxes} boxes, overlaps ${overlaps}, outside ${outside}, unsupported ${unsupported}, aggregate volume ${vol}/${cap} = ${(vol / cap * 100).toFixed(3)}%, mean per-instance ${(util / 60 * 100).toFixed(3)}%`);
 console.log(`ok   no-support baseline: ${basePlaced}/${boxes} placed, overlaps ${baseOverlaps}, unsupported ${baseUnsupported} (${(baseUnsupported / boxes * 100).toFixed(2)}%), same volume ${baseVol}`);
 console.log(`ok   grid occupancy oracle: 0 double writes, ${gridCells} occupied unit cells == placed volume`);
 console.log(`ok   grid support oracle: ${oracleBoxes} elevated boxes, ${oracleMismatch} mismatches vs sweep-line support`);
@@ -74,7 +74,7 @@ for (const inst of instances.slice(0, 10)) {
   }
 }
 if (scaledBad) fail(`scale invariance failed on ${scaledBad}/${scaled} scaled instances`);
-ok(`scale invariance: ${scaled}/${scaled} instances at ×2/×3/×5 keep utilization ${(util / 60 * 100).toFixed(2)}% and 0 violations`);
+ok(`scale invariance: ${scaled}/${scaled} instances at ×2/×3/×5 keep mean utilization ${(util / 60 * 100).toFixed(3)}% and 0 violations`);
 
 const tiny = { container: { w: 4, h: 4, d: 4 }, boxes: Array.from({ length: 8 }, () => ({ w: 2, h: 2, d: 2 })) };
 const tRes = pack(tiny);
@@ -91,5 +91,5 @@ const h2 = createHash("sha256").update(JSON.stringify(pack(instances[0]).placeme
 if (h1 !== h2) fail("pack is not deterministic");
 ok(`determinism: two runs hash to ${h1.slice(0, 16)}…`);
 
-console.log(`ASSERTIONS PASSED: 60 instances, ${boxes} boxes, util ${(util / 60 * 100).toFixed(2)}% (all gates exit 0)`);
+console.log(`ASSERTIONS PASSED: 60 instances, ${boxes} boxes, aggregate util ${(vol / cap * 100).toFixed(3)}% (all gates exit 0)`);
 process.exit(0);

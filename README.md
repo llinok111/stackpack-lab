@@ -1,6 +1,6 @@
 # stackpack-lab
 
-**Support-certified 3D container packing.** On 60 deterministic instances (4,555 integer boxes) the packer places **4,555/4,555 boxes with 0 overlaps, 0 boxes outside the container and 0 floating boxes**; the same search with the support gate disabled places the same volume (84.05% utilisation) but leaves **1,750/4,555 boxes (38.42%) resting on nothing**. Every number is an exact integer predicate, not a sampled estimate.
+**Support-certified 3D container packing.** On 60 deterministic instances (4,555 integer boxes) the packer places **4,555/4,555 boxes with 0 overlaps, 0 boxes outside the container and 0 floating boxes**; the same search with the support gate disabled places the same volume (83.79% of total container capacity) but leaves **1,750/4,555 boxes (38.42%) resting on nothing**. Every number is an exact integer predicate, not a sampled estimate.
 
 Upstream: none
 
@@ -28,14 +28,15 @@ No install, no `node_modules`. Node 24. The viewer loads three.js 0.169.0 from a
 | overlap pairs | 0 | 0 |
 | outside container | 0 | 0 |
 | floating boxes | **0** | **1,750 (38.42%)** |
-| volume utilisation | 84.05% | 84.05% |
+| volume utilisation (aggregate) | 83.79% | 83.79% |
 
+- Aggregate utilization is `275,385 / 328,680 = 83.785%`; the mean of the 60 per-instance ratios is 84.049%.
 - Independent occupancy oracle: 0 double-written unit cells; 275,385 occupied cells == placed volume.
 - Independent support oracle (per-cell top-height bitmask): 3,568 elevated boxes, **0 mismatches** against the sweep-line area code.
 - Scale ×2 / ×3 / ×5: 30/30 instances keep the same utilisation and 0 violations.
 - Negative control: a 1×1×1 box floated at z=2 is reported as unsupported; 8× (2×2×2) boxes exactly fill a 4×4×4 container at 100%.
-- Timing (130-box instance, 7 samples after warmup): cold 268.479 ms, median **195.298 ms**, p95 200.547 ms, RSD 1.54%. No sample was removed. Baseline median 168.043 ms; the difference is the support check.
-- Audit of the 130-box placement: median 0.279 ms.
+- Timing (130-box instance, 7 samples after warmup): cold 242.621 ms, median **192.895 ms**, p95 200.450 ms, RSD 1.60%. No sample was removed. Baseline median 163.507 ms; the difference is the support check.
+- Audit of the 130-box placement: median 0.277 ms.
 
 ## Known limitations
 
@@ -49,6 +50,6 @@ No install, no `node_modules`. Node 24. The viewer loads three.js 0.169.0 from a
 
 ## 本轮创新
 
-Support is enforced **during construction** by an exact per-placement gate rather than checked and removed afterwards, and the resulting zero-floating packings are shipped with a second, structurally different oracle (per-cell top-height bitmask vs sweep-line rectangle union). This makes the no-support baseline's blind spot explicit and quantified: identical 84.05% volume utilisation, but 1,750 physically unsupported boxes — a failure mode that a utilisation-only packer reports as a perfect result. The browser recomputes the same counts from the same module, so the displayed certificate is the node certificate.
+Support is enforced **during construction** by an exact per-placement gate rather than checked and removed afterwards, and the resulting zero-floating packings are shipped with a second, structurally different oracle (per-cell top-height bitmask vs sweep-line rectangle union). This makes the no-support baseline's blind spot explicit and quantified: identical 83.79% aggregate volume utilisation, but 1,750 physically unsupported boxes — a failure mode that a utilisation-only packer reports as a perfect result. The browser recomputes the same counts from the same module, so the displayed certificate is the node certificate.
 
 MIT © 2026 llinok111

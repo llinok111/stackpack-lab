@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { pack, checkPacking } from "../src/core.mjs";
 
 const inst = JSON.parse(readFileSync(new URL("../data/bench-instance.json", import.meta.url), "utf8"));
+const { instances } = JSON.parse(readFileSync(new URL("../data/corpus.json", import.meta.url), "utf8"));
 const REPEATS = 7;
 const now = () => performance.now();
 
@@ -45,10 +46,25 @@ run(0); // baseline warmup (same search, support gate disabled)
 const base = [];
 for (let i = 0; i < REPEATS; i++) base.push(run(0).packMs);
 
+let cv = 0, cc = 0, cun = 0, bun = 0, cpl = 0, bpl = 0, cov = 0, cboxes = 0;
+for (const ci of instances) {
+  const a = checkPacking(ci, pack(ci).placements);
+  const b = checkPacking(ci, pack(ci, { minSupport: 0 }).placements);
+  cv += a.volume; cc += ci.container.w * ci.container.h * ci.container.d;
+  cun += a.unsupportedCount; bun += b.unsupportedCount;
+  cpl += a.placed; bpl += b.placed; cov += a.overlapPairs + b.overlapPairs;
+  cboxes += ci.boxes.length;
+}
+function utilMean(list) {
+  let m = 0;
+  for (const ci of list) m += checkPacking(ci, pack(ci).placements).utilization;
+  return m / list.length;
+}
+
 const result = {
   node: process.version,
-  corpus: { instances: 60, boxes: 4555, utilizationPct: 84.05, overlaps: 0, unsupported: 0 },
-  baseline: { boxes: 4555, utilizationPct: 84.05, overlaps: 0, unsupported: 1750, unsupportedPct: 38.42 },
+  corpus: { instances: instances.length, boxes: cboxes, placed: cpl, volume: cv, capacity: cc, aggregateUtilizationPct: +(cv / cc * 100).toFixed(3), meanUtilizationPct: +(utilMean(instances) * 100).toFixed(3), overlaps: cov, unsupported: cun },
+  baseline: { boxes: cboxes, placed: bpl, volume: cv, aggregateUtilizationPct: +(cv / cc * 100).toFixed(3), overlaps: 0, unsupported: bun, unsupportedPct: +(bun / cboxes * 100).toFixed(2) },
   benchInstance: { boxes: inst.boxes.length, container: inst.container },
   coldStartMs: { pack: +cold.packMs.toFixed(3), audit: +cold.auditMs.toFixed(3) },
   certifiedPack: stats(certified),
