@@ -86,6 +86,14 @@ const eRep = checkPacking(evil, ePlace);
 if (eRep.unsupportedCount !== 1) fail(`negative control expected 1 unsupported, got ${eRep.unsupportedCount}`);
 ok(`negative control: floating 1×1×1 at z=2 is rejected (unsupported=${eRep.unsupportedCount}); 8/8 boxes fill 4×4×4 at 100%`);
 
+const ovl = checkPacking({ container: { w: 4, h: 4, d: 4 }, boxes: [{ w: 2, h: 2, d: 2 }, { w: 2, h: 2, d: 2 }] },
+  [{ id: 0, x: 0, y: 0, z: 0, w: 2, h: 2, d: 2 }, { id: 1, x: 1, y: 1, z: 1, w: 2, h: 2, d: 2 }]);
+if (ovl.overlapPairs !== 1) fail(`overlap negative control got ${ovl.overlapPairs}`);
+const out = checkPacking({ container: { w: 4, h: 4, d: 4 }, boxes: [{ w: 2, h: 2, d: 2 }] },
+  [{ id: 0, x: 3, y: 0, z: 0, w: 2, h: 2, d: 2 }]);
+if (out.outOfContainer.length !== 1) fail(`outside negative control got ${out.outOfContainer.length}`);
+ok(`overlap/containment negative controls: 1 overlapping pair detected, 1 out-of-container box detected`);
+
 const h1 = createHash("sha256").update(JSON.stringify(pack(instances[0]).placements)).digest("hex");
 const h2 = createHash("sha256").update(JSON.stringify(pack(instances[0]).placements)).digest("hex");
 if (h1 !== h2) fail("pack is not deterministic");
