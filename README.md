@@ -34,8 +34,8 @@ No install, no `node_modules`. Node 24. The viewer loads three.js 0.169.0 from a
 - Independent support oracle (per-cell top-height bitmask): 3,568 elevated boxes, **0 mismatches** against the sweep-line area code.
 - Scale ×2 / ×3 / ×5: 30/30 instances keep the same utilisation and 0 violations.
 - Negative control: a 1×1×1 box floated at z=2 is reported as unsupported; 8× (2×2×2) boxes exactly fill a 4×4×4 container at 100%.
-- Timing (130-box instance, 7 samples after warmup): cold 253.700 ms, median **196.586 ms**, p95 296.547 ms, RSD 19.20%. The first two measured iterations (201.9, 296.5 ms) carry JIT/GC cost; the remaining five are 194.7–202.0 ms. No sample was removed. Baseline median 168.703 ms; the difference is the support check.
-- Audit of the 130-box placement: median 0.273 ms.
+- Timing (130-box instance, 7 samples after warmup): cold 268.479 ms, median **195.298 ms**, p95 200.547 ms, RSD 1.54%. No sample was removed. Baseline median 168.043 ms; the difference is the support check.
+- Audit of the 130-box placement: median 0.279 ms.
 
 ## Known limitations
 
