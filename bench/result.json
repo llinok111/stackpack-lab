@@ -1,0 +1,79 @@
+{
+  "node": "v24.19.0",
+  "corpus": {
+    "instances": 60,
+    "boxes": 4555,
+    "utilizationPct": 84.05,
+    "overlaps": 0,
+    "unsupported": 0
+  },
+  "baseline": {
+    "boxes": 4555,
+    "utilizationPct": 84.05,
+    "overlaps": 0,
+    "unsupported": 1750,
+    "unsupportedPct": 38.42
+  },
+  "benchInstance": {
+    "boxes": 130,
+    "container": {
+      "w": 24,
+      "h": 24,
+      "d": 24
+    }
+  },
+  "coldStartMs": {
+    "pack": 253.7,
+    "audit": 3.002
+  },
+  "certifiedPack": {
+    "samples": [
+      201.863,
+      296.547,
+      287.096,
+      195.435,
+      195.841,
+      196.586,
+      194.742
+    ],
+    "min": 194.742,
+    "median": 196.586,
+    "p95": 296.547,
+    "stddev": 43.013,
+    "rsdPct": 19.2
+  },
+  "certifiedAudit": {
+    "samples": [
+      0.385,
+      0.368,
+      0.261,
+      0.278,
+      0.26,
+      0.273,
+      0.26
+    ],
+    "min": 0.26,
+    "median": 0.273,
+    "p95": 0.385,
+    "stddev": 0.05,
+    "rsdPct": 16.86
+  },
+  "noSupportPack": {
+    "samples": [
+      168.703,
+      167.06,
+      168.744,
+      168.584,
+      176.787,
+      176.467,
+      166.068
+    ],
+    "min": 166.068,
+    "median": 168.703,
+    "p95": 176.787,
+    "stddev": 4.078,
+    "rsdPct": 2.39
+  },
+  "repeats": 7,
+  "note": "cold start is the first call after module load; warmup run is discarded; no sample removed"
+}

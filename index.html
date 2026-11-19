@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>stackpack-lab · support-certified 3D packing</title>
+<style>
+  :root { color-scheme: dark; --bg:#0b0f14; --panel:#121a24; --line:#243244; --fg:#dce7f5; --dim:#8ba0b8; --ok:#38d996; --bad:#ff5470; --blue:#4aa3ff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 14px/1.45 ui-sans-serif, system-ui, sans-serif; }
+  #app { display: grid; grid-template-columns: 340px 1fr; height: 100%; }
+  #panel { padding: 16px; border-right: 1px solid var(--line); overflow: auto; background: var(--panel); }
+  h1 { font-size: 18px; margin: 0 0 4px; letter-spacing: .2px; }
+  .sub { color: var(--dim); font-size: 12px; margin-bottom: 14px; }
+  .row { margin: 12px 0; }
+  label { color: var(--dim); font-size: 12px; display: flex; justify-content: space-between; }
+  input[type=range] { width: 100%; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .stat { border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+  .stat b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--dim); font-size: 11px; }
+  .ok { color: var(--ok); } .bad { color: var(--bad); }
+  .legend { margin-top: 12px; font-size: 12px; color: var(--dim); }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+  button { background: #1b2a3c; color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; cursor: pointer; }
+  button[aria-pressed=true] { border-color: var(--blue); color: var(--blue); }
+  #view { position: relative; min-width: 0; }
+  canvas { display: block; width: 100%; height: 100%; }
+  #hint { position: absolute; left: 12px; bottom: 10px; color: var(--dim); font-size: 12px; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app">
+  <aside id="panel">
+    <h1>stackpack-lab</h1>
+    <div class="sub">Support-certified 3D container packing · integer boxes · exact predicates</div>
+    <div class="row">
+      <label for="case">instance <output id="caseOut">0</output></label>
+      <input id="case" type="range" min="0" max="59" step="1" value="0" />
+    </div>
+    <div class="row">
+      <button id="toggle" aria-pressed="false">baseline: ignore support</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="placed">–</b><span>boxes placed</span></div>
+      <div class="stat"><b id="util">–</b><span>volume utilization</span></div>
+      <div class="stat"><b id="unsup" class="ok">–</b><span>floating boxes</span></div>
+      <div class="stat"><b id="over">–</b><span>overlap pairs</span></div>
+      <div class="stat"><b id="ms">–</b><span>browser pack (ms)</span></div>
+      <div class="stat"><b id="node">–</b><span>node median (ms)</span></div>
+    </div>
+    <div class="legend">
+      <div><span class="dot" style="background:#38d996"></span>supported placement</div>
+      <div><span class="dot" style="background:#ff5470"></span>floating placement (baseline only)</div>
+      <div><span class="dot" style="background:#6c8bb0"></span>container</div>
+      <p>Same <code>src/core.mjs</code> runs in node and here. The counts below are recomputed in your browser, not copied from the benchmark.</p>
+    </div>
+  </aside>
+  <main id="view"><div id="hint">drag to orbit · wheel to zoom</div></main>
+</div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
