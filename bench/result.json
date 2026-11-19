@@ -8,7 +8,7 @@
     "capacity": 328680,
     "aggregateUtilizationPct": 83.785,
     "meanUtilizationPct": 84.049,
-    "overlaps": 0,
+    "overlapPairs": 0,
     "unsupported": 0
   },
   "baseline": {
@@ -16,7 +16,7 @@
     "placed": 4555,
     "volume": 275385,
     "aggregateUtilizationPct": 83.785,
-    "overlaps": 0,
+    "overlapPairs": 0,
     "unsupported": 1750,
     "unsupportedPct": 38.42
   },
@@ -29,56 +29,56 @@
     }
   },
   "coldStartMs": {
-    "pack": 242.621,
-    "audit": 2.775
+    "pack": 247.978,
+    "audit": 2.463
   },
   "certifiedPack": {
     "samples": [
-      198.514,
-      200.45,
-      191.877,
-      192.895,
-      192.858,
-      192.87,
-      196.856
+      202.051,
+      204.831,
+      194.279,
+      196.938,
+      193.433,
+      193.927,
+      194.22
     ],
-    "min": 191.877,
-    "median": 192.895,
-    "p95": 200.45,
-    "stddev": 3.129,
-    "rsdPct": 1.6
+    "min": 193.433,
+    "median": 194.279,
+    "p95": 204.831,
+    "stddev": 4.21,
+    "rsdPct": 2.14
   },
   "certifiedAudit": {
     "samples": [
-      0.559,
-      0.362,
-      0.277,
-      0.289,
-      0.274,
+      0.37,
+      0.37,
       0.259,
-      0.258
+      0.26,
+      0.258,
+      0.261,
+      0.26
     ],
     "min": 0.258,
-    "median": 0.277,
-    "p95": 0.559,
-    "stddev": 0.101,
-    "rsdPct": 30.99
+    "median": 0.26,
+    "p95": 0.37,
+    "stddev": 0.05,
+    "rsdPct": 17.1
   },
   "noSupportPack": {
     "samples": [
-      164.211,
-      162.697,
-      163.573,
-      163.507,
-      173.861,
-      159.766,
-      161.173
+      166.306,
+      166.327,
+      168.469,
+      166.486,
+      179.644,
+      164.429,
+      164.445
     ],
-    "min": 159.766,
-    "median": 163.507,
-    "p95": 173.861,
-    "stddev": 4.23,
-    "rsdPct": 2.58
+    "min": 164.429,
+    "median": 166.327,
+    "p95": 179.644,
+    "stddev": 4.916,
+    "rsdPct": 2.93
   },
   "repeats": 7,
   "note": "cold start is the first call after module load; warmup run is discarded; no sample removed"
